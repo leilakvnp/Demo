@@ -17,7 +17,7 @@ $class=str_replace('\\',DIRECTORY_SEPARATOR,$class);
 require base_path('views/bootstrap.php');
 //require base_path("Core/router.php");// at the last
  $router=new Router();
- $routes=require  base_path('routes.php');
+ $routes=require  base_path('routes.php');//in routes by calling Router class's method routes arraywill be  created
  $uri=parse_url($_SERVER['REQUEST_URI'])['path'];
  $method= $_POST['_method']?? $_SERVER['REQUEST_METHOD'];//request_method is get or post,how to handel delete? add hidden field
 error_log($method);

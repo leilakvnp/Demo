@@ -24,8 +24,7 @@ $errors = [];//server side validation
             'body' => $_POST['body'],
             'id' => $_POST['id']
         ]);
-        // $insert = 'INSERT INTO notes (body, user_id) VALUES ("2: ' . $_POST['body'] . '",1)';
-        // $db->query($insert);
+      
         header('location: /notes');
         die();
     }

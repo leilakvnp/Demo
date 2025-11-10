@@ -38,7 +38,7 @@ class Database
     { // to use db=>query()->findorFail
         $result = $this->find();
         if (!$result) {
-            abort(404);
+            abort(Response::Not_found);
         }
         return $result;
     }
