@@ -1,4 +1,4 @@
 <?php
 
 $heading="Contact Us";
-view("index.view.php",['heading'=>'Contact US']);
+view("contact.view.php",['heading'=>'Contact US']);

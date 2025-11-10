@@ -1,24 +1,10 @@
 <?php
 
 namespace Core;
-// $routes=require base_path('routes.php');
-// $uriPath = parse_url($_SERVER['REQUEST_URI'])['path'];
 
-// function routeToController($uriPath, $routes)
-// {
-//     if (array_key_exists($uriPath, $routes)) {
-
-//         require base_path($routes[$uriPath]);
-//     } else {
-//         abort();
-//     }
-// }
-// function abort($code=404){
-//     http_response_code($code);
-//     require base_path("views/$code.php");
-// }
-// routeToController($uriPath, $routes);
-
+use Core\Middleware\Guest; 
+use Core\Middleware\Auth;
+use Core\Middleware\Middleware;
 
 class Router
 {
@@ -26,8 +12,15 @@ class Router
     public function route($uri, $method)
     {
         foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['method'] === strtoupper($method))
+            if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+                //apply middleware
+                if (isset($route['middleware'])) {
+                    //dd($_SESSION['user']);
+                    Middleware::resolve($route['middleware']);
+                }
+                
                 return require base_path($route['controller']);
+            }
         }
         //abort
         $this->abort();
@@ -39,31 +32,37 @@ class Router
         die();
     }
     public function add($method, $uri, $controller)
-    {//or compact method opposit to extract; compact('method','uri','controller')
+    { //or compact method opposit to extract; compact('method','uri','controller')
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
             'method' => $method
         ];
+        return $this;
+    }
+    public function only($key)
+    { //authorization
+        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+        return $this;
     }
     public function get($uri, $controller)
     {
-        $this->add('GET', $uri, $controller);
+        return $this->add('GET', $uri, $controller);
     }
     public function post($uri, $controller)
     {
-        $this->add('POST', $uri, $controller);
+        return $this->add('POST', $uri, $controller);
     }
     public function delete($uri, $controller)
     {
-        $this->add('DELETE', $uri, $controller);
+        return $this->add('DELETE', $uri, $controller);
     }
     public function patch($uri, $controller)
     {
-        $this->add('PATCH', $uri, $controller);
+        return $this->add('PATCH', $uri, $controller);
     }
     public function put($uri, $controller)
     {
-        $this->add('PUT', $uri, $controller);
+        return $this->add('PUT', $uri, $controller);
     }
 }

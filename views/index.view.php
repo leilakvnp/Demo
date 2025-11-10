@@ -5,6 +5,11 @@
   <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <p>You are in home page</p>
+      <?php if($_SESSION['user']?? false): ?>
+      <?= 'hello, '.$_SESSION['user']['email']; ?>
+      <?php else: ?>
+        <?= 'hello, guest.' ?>
+      <?php endif; ?>
     </div>
   </main>
 <?php require ("partials/footer.php"); ?>

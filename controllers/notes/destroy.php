@@ -3,7 +3,7 @@
 use Core\Database;
 use Core\app;
 
-$db=App::resolve(Database::class);
+$db=App::resolve(Database::class);//databse::class return string of full namespace path
 $currentuserId = 1;
 
 $note1 = $db->query('select * from notes where  id =:id', ['id' => $_POST['id']])->FindORFail();

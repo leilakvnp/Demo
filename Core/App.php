@@ -14,7 +14,7 @@ class App
         return static::$container;
     }
 
-    public static function bind(string $key, callable $resolver)
+    public static function bind(string $key, callable $resolver)//?where use it??
     {
         static::Container()->bind($key, $resolver);
     }
