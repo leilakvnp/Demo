@@ -3,6 +3,7 @@
 use Core\Validator;
 use Core\App;
 use Core\Database;
+use Core\Authenticator;
 
 // $config = require base_path('config.php');
 // $db=new Database($config['database']);
@@ -29,8 +30,12 @@ if (!empty($user)) { //check if already exists if yes redirect to login
         'email' => $_POST['email'],
         'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
     ]);
-    login($user);
+    $newUser = $db->query('SELECT * FROM users WHERE email = :email', [
+        'email' => $_POST['email']
+    ])->find();
+  
+    $auth = new Authenticator();
+    $auth->login($newUser);
 
-    header('location: /');
-    exit();
+    redirect('/');
 }
