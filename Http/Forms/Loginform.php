@@ -5,7 +5,7 @@ namespace Http\Forms;
 use Core\ValidationException;
 use Core\Validator;
 
-class Loginform
+class LoginForm
 {
     //protected $attributes = [];
     protected $errors = [];

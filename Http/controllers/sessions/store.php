@@ -1,15 +1,17 @@
 <?php
 
 use Core\Authenticator;
-use Http\Forms\Loginform;
+use Http\Forms\LoginForm;
 
+// Ensure the LoginForm class is available even if Composer's autoloader isn't picking it up
+//require_once base_path('Http/Forms/LoginForm.php');
 
 // $email = $_POST['email'];
 // $password = $_POST['password'];
 // dd($email);
 //server side validation
 
-$form = Loginform::validate([
+$form = LoginForm::validate([
   'email' => $_POST['email'],
   'password' => $_POST['password']
 ]);//if validate fail throw an exception else return an object
