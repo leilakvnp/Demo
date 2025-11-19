@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Core\Middleware\Guest; 
+use Core\Middleware\Guest;
 use Core\Middleware\Auth;
 use Core\Middleware\Middleware;
 
@@ -18,8 +18,8 @@ class Router
                     //dd($_SESSION['user']);
                     Middleware::resolve($route['middleware']);
                 }
-                
-                return require base_path($route['controller']);
+
+                return require base_path('Http/controllers/' . $route['controller']);
             }
         }
         //abort
@@ -44,6 +44,10 @@ class Router
     { //authorization
         $this->routes[array_key_last($this->routes)]['middleware'] = $key;
         return $this;
+    }
+    public function previousUrl()
+    {
+        return $_SERVER['HTTP_REFERER'];
     }
     public function get($uri, $controller)
     {

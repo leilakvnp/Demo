@@ -1,0 +1,19 @@
+{
+    "name": "lkavi/demo",
+    "authors": [
+        {
+            "name": "Leila-kvn",
+            "email": "leila.kvnp@google.com"
+        }
+    ],
+    "require": {
+        "illuminate/collections": "^12.38"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\":"Core/",
+            "'Http\\":"Http/"
+
+        }
+    }
+}
